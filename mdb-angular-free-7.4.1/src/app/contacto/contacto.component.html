@@ -1,0 +1,86 @@
+<section  id="contacto">
+<div class="container   text-center">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 mb-12">
+      <h2>Dejanos tu opinion</h2>
+      <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+        <!-- First name   form-row md-form col-lg-9 col-md-12 mb-12-->
+        <div class="   md-form col-lg-9 col-md-12 mb-12">
+          <input mdbInput mdbValidate type="text" id="first_namecontact" name="first" class="form-control"
+            [(ngModel)]="contmodel.first_name" #input_first_name="ngModel" minlength="3" maxlength="20"
+            pattern="[a-zA-Z ]*" (keypress)="restrictext($event)">
+          <label for="first_namecontact">Nombre</label>
+          <mdb-error *ngIf="input_first_name.invalid && (input_first_name.dirty || input_first_name.touched)">
+            invalido</mdb-error>
+          <mdb-success *ngIf="input_first_name.valid && (input_first_name.dirty || input_first_name.touched)">
+            correcto</mdb-success>
+        </div>
+        <!-- Last name -->
+        <div class="md-form col-lg-9 col-md-12 mb-12">
+          <input mdbInput mdbValidate name="l_name" type="text" id="last_name" class="form-control"
+            [(ngModel)]="contmodel.last_name" #input_last_name="ngModel" required minlength="4" maxlength="20"
+            pattern="[a-zA-Z ]*" (keypress)="restrictext($event)">
+          <label for="last_name">Apellido</label>
+          <mdb-error *ngIf="input_last_name.invalid && (input_last_name.dirty || input_last_name.touched)">
+            invalido
+          </mdb-error>
+          <mdb-success *ngIf="input_last_name.valid && (input_last_name.dirty || input_last_name.touched)">
+            correcto
+          </mdb-success>
+        </div>
+        <!-- Email-->
+        <div class="form-row ">
+          <div class="md-form container">
+            <input mdbInput mdbValidate name="Email" email type="email" id="Emailregister" class="form-control"
+              [(ngModel)]="contmodel.email" #input_Email="ngModel" required maxlength="40">
+            <label for="Emailregister">Email </label>
+            <mdb-error *ngIf="input_Email.invalid && (input_Email.dirty || input_Email.touched)">El
+              campo debe llevar
+              @</mdb-error>
+            <mdb-success *ngIf="input_Email.valid && (input_Email.dirty || input_Email.touched)">
+              correcto
+            </mdb-success>
+          </div>
+        </div>
+        <!-- asunto-->
+        <div data-aos="zoom-in" class="form-row md-form col-lg-9 col-md-12 mb-6">
+          <span>Asunto</span>
+          <select #selectaffair="ngModel" class="form-control" id="idSelectaffairt" name="selec"
+            [(ngModel)]="contmodel.affair" class="browser-default custom-select" required>
+            <option selected></option>
+            <option value="1">recomendacion</option>
+            <option value="2">queja</option>
+            <option value="3">felicitacion</option>
+          </select>
+          <mdb-error *ngIf="selectaffair.invalid && (selectaffair.dirty || selectaffair.touched)">
+            invalido
+          </mdb-error>
+          <mdb-success *ngIf="selectaffair.valid && (selectaffair.dirty || selectaffair.touched)">
+          </mdb-success>
+        </div>
+        <div data-aos="fade-right" class=" form-row md-form col-lg-9 col-md-12 mb-6">
+          <textarea mdbInput mdbValidate name="message" type="text" id="message" class="form-control md-textarea"
+            rows="3" [(ngModel)]="contmodel.message" #text_message="ngModel" required minlength="3"
+            maxlength="250"></textarea>
+          <label for="message">mensaje</label>
+          <mdb-error *ngIf="text_message.invalid && (text_message.dirty || text_message.touched)">invalido
+          </mdb-error>
+          <mdb-success *ngIf="text_message.valid && (text_message.dirty || text_message.touched)">correcto
+          </mdb-success>
+        </div>
+        <div data-aos="fade-right" class="  form-row md-form flex-center col-lg-9 col-md-6 mb-6">
+          <button mdbBtn color="info" outline="true" rounded="true" block="true"
+            [disabled]="f.form.pristine || f.form.invalid" class="z-depth-0 my-4 waves-effect" mdbWavesEffect
+            type="submit">Enviar</button>
+        </div>
+      </form>
+    </div>
+    <div data-aos="fade-left" class="col-lg-6 col-md-6 mb-12">
+      <h2>Ubicanos </h2>
+      <iframe class="col-lg-12 col-md-12 mb-12"
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d31761.843509348906!2d-73.2769546!3d5.6797948!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e6a6fdc3736e363%3A0x50a21fa47a3976f0!2zQ8OhcmNlbCBkZSBDw7NtYml0YQ!5e0!3m2!1ses-419!2sco!4v1551472362361"
+        width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+</section>

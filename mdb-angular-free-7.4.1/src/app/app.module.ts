@@ -18,7 +18,6 @@ import { ReservaComponent } from './reserva/reserva.component';
 import {NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import { UpdateUserComponent } from './update-user/update-user.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

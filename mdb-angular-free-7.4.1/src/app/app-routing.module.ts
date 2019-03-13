@@ -10,7 +10,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ContactoComponent } from './contacto/contacto.component';
 import { HabitacionComponent } from './habitacion/habitacion.component';
 import { ReservaComponent } from './reserva/reserva.component';
-
+import { AuthGuard } from './core/auth.guard';
 
 const routes: Routes = [
   { path: 'container', component: ContainerComponent },
@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'contacto', component: ContactoComponent },
   { path: 'habitacion', component: HabitacionComponent },
   { path: 'conocenos', component: ConocenosComponent },
-  { path: 'reserva', component: ReservaComponent },
+  { path: 'reserva', component: ReservaComponent ,   canActivate: [AuthGuard]},
   { path: 'updateUser', component: UpdateUserComponent },
   { path: '', component: HomeComponent }
 ];

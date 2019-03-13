@@ -1,6 +1,8 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Login } from '../models/Login';
+import { AuthService } from '../core/auth.service';
+declare var $: any;
 
 @Component({
   selector: 'app-container',
@@ -10,28 +12,39 @@ import { Login } from '../models/Login';
 
 export class ContainerComponent implements OnInit {
 
-  
   validatingForm: FormGroup;
   ModalLogin: Login;
   showPerfil: boolean;
-  showmodal: boolean;
   email: string;
   password: string;
-
-  constructor() {    
+  localshowPerfil:string;
+  
+  constructor(public authService: AuthService) { 
     this.ModalLogin = new Login();
     this.email = 'daniellopezj0327@gmail.com';
     this.password = '111111';
+    this.validateUserLogin();
+   
   }
 
-  
+  validateUserLogin(){
+    this.localshowPerfil =  localStorage.getItem('user');
+    if(this.localshowPerfil == 'loginC'){
+      this.showPerfil = true;
+      this.authService.login();
+    }
+  }
+
   onSubmit() {
     if (this.ModalLogin.Loginemai == this.email && this.ModalLogin.password == this.password) {
+      localStorage.setItem('user', 'loginC');
       console.log("ingrese");
-      this.showPerfil = true; 
-      this.showmodal = true;
-    }else{
-       alert('datos incorrectos');
+      alert('bienvenido señor usuario')
+      this.showPerfil =  true;
+      this.authService.login();
+      $("#modalLoginForm").modal("hide");
+    } else {
+      alert('datos incorrectos');
     }
   }
 
@@ -43,5 +56,12 @@ export class ContainerComponent implements OnInit {
     });
   }
 
+  clearlocalstora(){
+      console.log('entre al metodo clearlocalstora')
+      this.showPerfil = false;
+      localStorage.clear();
+      this.authService.logout();
+  }
+  
   get input() { return this.validatingForm.get('maxLength'); }
 }

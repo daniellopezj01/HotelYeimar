@@ -1,4 +1,86 @@
 <section id="sectionReserva">
+    
+    <div id="modalAlertReserva" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close pull-right" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title w-100">Mensaje de alerta</h4>
+                </div>
+                <div class="container  modal-body">
+                    <div>
+                        <h3 class="mensaje">{{message}}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" mdbBtn color="secondary" class="waves-light" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="showconfirReserve" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content container">
+                <div class="modal-header">
+                    <h4 class="modal-title w-100"><b>notificacion Reserva</b></h4>
+                </div>
+                <div class="modal-body ">
+                        <h5 class="modal-title w-100"> <b>El administrador se comunicara via telefonica para confirmar reservacion en menos de 24 horas </b></h5>
+                    <br>
+                        <div class="row text-left">
+                        <h3 class="titulom  col-md-6"><b> Fecha llegada: </b></h3>
+                        <div class=" col-md-6 ml-auto mensaje">
+                            <h5>{{D1}}</h5>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row text-left">
+                        <h3 class="titulom  col-md-6"><b> Fecha salida: </b></h3>
+                        <div class=" col-md-6 ml-auto mensaje">
+                            <h5>{{D2}}</h5>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row text-left">
+                        <h3 class="titulom col-md-6"><b> No camas </b></h3>
+                        <div class=" col-md-6 ml-auto mensaje">
+                            <h5>{{reserve.numBed}}</h5>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row text-left">
+                            <h3 class="titulom col-md-6"><b> Tipo de reserva </b></h3>
+                            <div class=" col-md-6 ml-auto mensaje">
+                                <h5>{{showtipoReserva()}}</h5>
+                            </div>
+                        </div>
+                        <br>
+                    <div class="row text-left">
+                        <h3 class="titulom col-md-6"><b>valor unitario:</b></h3>
+                        <div class=" col-md-6 ml-auto mensaje">
+                            <h5>$ 15000</h5>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row text-left">
+                        <h3 class="titulom col-md-6"><b> valor Estimado: </b></h3>
+                        <div class=" col-md-6 ml-auto mensaje">
+                            <h5>$ {{precio}}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" mdbBtn color="secondary" class="waves-light"
+                    (click)="reload()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="container text-center col-lg-5 col-md-6 mb-3 datapr">
         <!-- Material form contact -->
         <mdb-card>
@@ -10,15 +92,18 @@
             <!--Card content-->
             <mdb-card-body class="px-lg-5 pt-0">
 
-                <form class=" container">
+                <form name="form" (ngSubmit)="f.form.valid && Reservar()" #f="ngForm">
                     <!-- Form -->
                     <div class="form-row flex-center  ">
                         <div class=" md-form  col-lg-6 col-md-6 ">
-                            <input class="form-control datapr" placeholder="yyyy-mm-dd" [minDate]="fromDate"
-                                [maxDate]="endDate" name="dp1" [(ngModel)]="date1" (ngModelChange)="validaDate1()"
-                                ngbDatepicker #llegada="ngbDatepicker"
-                                readonly
-                                >
+                            <input mdbInput mdbValidate class="form-control datapr" placeholder="yyyy-mm-dd"
+                                [minDate]="fromDate" [maxDate]="endDate" name="dp1" [(ngModel)]="date1"
+                                (ngModelChange)="validaDate1()" #arrivedate="ngModel" ngbDatepicker
+                                #llegada="ngbDatepicker" readonly required>
+                            <mdb-error *ngIf="arrivedate.invalid && (arrivedate.dirty || arrivedate.touched)">
+                                seleccionar fecha de llegada</mdb-error>
+                            <mdb-success *ngIf="arrivedate.valid && (arrivedate.dirty || arrivedate.touched)">
+                                correcto</mdb-success>
                         </div>
                         <div class=" md-form col-lg-6 col-md-6 ">
                             <button class="btn btn-outline-success btn-block " (click)="llegada.toggle()" type="button">
@@ -29,54 +114,60 @@
                         <div class=" col-lg-6 col-md-6 ">
                             <input class="form-control datapr" placeholder="yyyy-mm-dd" [minDate]="min2picker"
                                 [maxDate]="endDate" name="dp2" [(ngModel)]="date2" ngbDatepicker
-                                (ngModelChange)="validaDate2()" #salida="ngbDatepicker"
-                                readonly>
+                                (ngModelChange)="validaDate2()" #Exitdate="ngModel" #salida="ngbDatepicker" readonly
+                                required>
+                            <mdb-error *ngIf="Exitdate.invalid && (Exitdate.dirty || Exitdate.touched)">
+                                fecha seleccionada incorrecta</mdb-error>
+                            <mdb-success *ngIf="Exitdate.valid && (Exitdate.dirty || Exitdate.touched)">
+                                correcto</mdb-success>
                         </div>
                         <div class="  col-lg-6 col-md-6 ">
-                            <button class="btn btn-outline-danger btn-block " (click)="salida.toggle()" [disabled]="!activebotton"  type="button">
+                            <button class="btn btn-outline-danger btn-block " (click)="salida.toggle()"
+                                [disabled]="!activebotton" type="button">
                                 Salida</button>
                         </div>
                     </div>
                     <div class="md-form container md-form form-row">
                         <div class=" col-lg-12 col-md-12 mb-12">
                             <span>Tipo de reserva</span>
-                            <select  id="selectTypeReserve"   name="selecReserve"   
-                            [(ngModel)]="reserve.idTypeReserve"
-                            (click) = "typeReserve()"
-                             class="browser-default custom-select datapr" 
-                             required>
-                                <option *ngFor="let Tipo of selecttipoR"
-                                [value]="Tipo.idtipoReserva">
+                            <select id="selectTypeReserve" #stypeReserve="ngModel" name="selecReserve"
+                                [(ngModel)]="reserve.idTypeReserve" class="browser-default custom-select datapr"
+                                required (change)='changetype()'>
+                                <option *ngFor="let Tipo of selecttipoR" [value]="Tipo.idtipoReserva">
                                     {{Tipo.tipoReserva}}</option>
                             </select>
+                            <mdb-error *ngIf="stypeReserve.invalid && (stypeReserve.dirty || stypeReserve.touched)">
+                                debe seleccionar alguna opcion
+                            </mdb-error>
+                            <mdb-success *ngIf="stypeReserve.valid && (stypeReserve.dirty || stypeReserve.touched)">
+                            </mdb-success>
                         </div>
                     </div>
-
                     <div class="md-form container md-form form-row">
-                    <div class=" col-lg-6 col-md-6 mb-3">
+                        <div class=" col-lg-12 col-md-12 mb-12">
                             <span>Numero de Personas</span>
-                            <select  class="browser-default custom-select" required>
+                            <select #selectNPerson="ngModel" name="selectNPerson" [(ngModel)]="reserve.numBed"
+                                class="browser-default custom-select" required data-toggle="tooltip"
+                                data-placement="top" title="debe seleccionar alguna opcion ">
                                 <option selected></option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
-                                <option value="1">3</option>
-                                <option value="2">4</option>
-                                <option value="1">5</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
                             </select>
+                            <mdb-error *ngIf="selectNPerson.invalid && (selectNPerson.dirty || selectNPerson.touched)">
+                                debe seleccionar alguna opcion
+                            </mdb-error>
+                            <mdb-success *ngIf="selectNPerson.valid && (selectNPerson.dirty || selectNPerson.touched)">
+                            </mdb-success>
                         </div>
-                        <div class=" col-lg-6 col-md-6 mb-3" [hidden]="!showH">
-                                <span>Numero de habitaciones</span>
-                                <select class="browser-default custom-select" required>
-                                    
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                </select>
-                            </div>
                     </div>
 
-
                     <button mdbBtn color="info" outline="true" rounded="true" block="true"
-                        class="z-depth-0 my-4 waves-effect" mdbWavesEffect type="submit">Reservar</button>
+                        [disabled]="f.form.pristine || f.form.invalid" class="z-depth-0 my-4 waves-effect"
+                        mdbWavesEffect type="submit" data-toggle="tooltip" data-placement="top"
+                        title="Reservar">Reserva</button>
                 </form>
             </mdb-card-body>
         </mdb-card>

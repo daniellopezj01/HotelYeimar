@@ -1,6 +1,24 @@
 <section id="sectionRegister">
-        
-        <div class="container text-center col-lg-5 col-md-6 mb-3">
+    <div id="modalAlertR" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close pull-right" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title w-100" >Mensaje de alerta</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="mensaje">{{message}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" mdbBtn color="secondary" class="waves-light"
+                        data-dismiss="modal" >Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center col-lg-5 col-md-6 mb-3">
         <!-- Material form contact -->
         <mdb-card>
             <mdb-card-header class="info-color white-text text-center py-4">
@@ -16,30 +34,30 @@
                     <div class="form-row ">
                         <!-- First name -->
                         <div class="  md-form col-lg-6 col-md-6 mb-3">
-                            <input mdbInput mdbValidate type="text" id="first_name" name="first" class="form-control required-entry validate-alpha "
-                                [(ngModel)]="dataUser.first_name" #input_first_name="ngModel"  minlength="3"
-                                maxlength="20"
-                                pattern="[a-zA-Z ]*" 
-                                (keypress)="restrictext($event)"
-                            >
+                            <input mdbInput mdbValidate type="text" id="first_name" name="first"
+                                class="form-control " [(ngModel)]="dataUser.firstName"
+                                #input_first_name="ngModel" minlength="3" maxlength="20" required pattern="[a-zA-Z ]*"
+                                (keypress)="restrictext($event)" data-toggle="tooltip" data-placement="top"
+                                title="no permite caracteres especiales">
                             <label for="first_name">Nombre</label>
                             <mdb-error
                                 *ngIf="input_first_name.invalid && (input_first_name.dirty || input_first_name.touched)">
-                                invalido</mdb-error>
+                                campo incorrecto</mdb-error>
                             <mdb-success
                                 *ngIf="input_first_name.valid && (input_first_name.dirty || input_first_name.touched)">
                                 correcto</mdb-success>
                         </div>
                         <!-- Last name -->
                         <div class="col md-form col-lg-6 col-md-6 mb-3">
-                            <input mdbInput mdbValidate name="l_name" type="text" id="last_name" class="form-control"
-                                [(ngModel)]="dataUser.last_name" #input_last_name="ngModel" required minlength="4"
-                                maxlength="20" pattern="[a-zA-Z ]*"
-                                (keypress)="restrictext($event)">
+                            <input mdbInput mdbValidate name="l_name" type="text" id="last_name" 
+                            class="form-control"  [(ngModel)]="dataUser.lastName" 
+                            #input_last_name="ngModel" required minlength="4" maxlength="20" pattern="[a-zA-Z ]*"
+                             (keypress)="restrictext($event)"
+                                data-toggle="tooltip" data-placement="top" title="no permite caracteres especiales">
                             <label for="last_name">Apellido</label>
                             <mdb-error
                                 *ngIf="input_last_name.invalid && (input_last_name.dirty || input_last_name.touched)">
-                                invalido
+                                campo incorrecto
                             </mdb-error>
                             <mdb-success
                                 *ngIf="input_last_name.valid && (input_last_name.dirty || input_last_name.touched)">
@@ -52,15 +70,15 @@
                         <div class="  col-lg-6 col-md-6 mb-3">
                             <span>Tipo de documento</span>
                             <select #selectdocument="ngModel" class="form-control" id="idSelectDocument" name="selec"
-                                [(ngModel)]="dataUser.idTypeDocument" class="browser-default custom-select" required>
-                                <option selected></option>
-                                <option value="1">Tarjeta de identidad</option>
-                                <option value="2">Cedula de extranjeria</option>
-                                <option value="3">Cedula de extranjeria</option>
+                                [(ngModel)]="dataUser.idTypeDocument" class="browser-default custom-select" required
+                                data-toggle="tooltip" data-placement="top" title="Seleccionar alguna opcion">
+                                <option *ngFor="let document of typeDocumentList" [value]="document.id">
+                                    {{ document.nombre_tipo }}
+                                </option>
                             </select>
                             <mdb-error
                                 *ngIf="selectdocument.invalid && (selectdocument.dirty || selectdocument.touched)">
-                                invalido
+                                seleccionar alguna opcion
                             </mdb-error>
                             <mdb-success
                                 *ngIf="selectdocument.valid && (selectdocument.dirty || selectdocument.touched)">
@@ -68,15 +86,13 @@
                         </div>
                         <!-- DOCUMENT -->
                         <div class="md-form  col-lg-6 col-md-6 mb-3">
-                            <input  mdbInput mdbValidate name="document" type="text" id="document" class="form-control"
-                                [(ngModel)]="dataUser.document" #mini="ngModel" minlength="7" 
-                                max="11"
-                                pattern="[0-9]*" required
-                                oninput=" if(this.value.length > this.max) 
-                                 {this.value = this.value.slice(0, this.max);}" 
-                                (keypress)="restrictNumeric($event)">
+                            <input mdbInput mdbValidate name="document" type="text" id="document" class="form-control"
+                                [(ngModel)]="dataUser.document" #mini="ngModel" minlength="7" max="11" pattern="[0-9]*"
+                                required oninput=" if(this.value.length > this.max) 
+                                 {this.value = this.value.slice(0, this.max);}" (keypress)="restrictNumeric($event)"
+                                data-toggle="tooltip" data-placement="top" title="no permite caracteres especiales">
                             <label for="mini">Documento</label>
-                            <mdb-error *ngIf="mini.invalid && (mini.dirty || mini.touched)">invalido
+                            <mdb-error *ngIf="mini.invalid && (mini.dirty || mini.touched)">minimo 7 caracteres
                             </mdb-error>
                             <mdb-success *ngIf="mini.valid && (mini.dirty || mini.touched)">correcto
                             </mdb-success>
@@ -86,36 +102,30 @@
                     <div class="form-row">
                         <div class=" col-lg-6 col-md-6 mb-3">
                             <span>Genero</span>
-                            <select id="idSelectGender" #selectGender="ngModel" name="selecGender" 
-                             [(ngModel)]="dataUser.gender"
-                                class="browser-default custom-select"
-                                required>
-                                <option *ngFor="let gender of genderList"
-                                [value]="gender.domainGender">
-                                {{ gender.nameGender }}</option>      
+                            <select id="idSelectGender" #selectGender="ngModel" name="selecGender"
+                                [(ngModel)]="dataUser.gender" class="browser-default custom-select" required
+                                data-toggle="tooltip" data-placement="top" title="debe seleccionar alguna opcion ">
+                                <option *ngFor="let gender of genderList" [value]="gender.domainGender">
+                                    {{ gender.nameGender }}</option>
                             </select>
-                            <mdb-error
-                                *ngIf="selectGender.invalid && (selectGender.dirty || selectGender.touched)">
-                                invalido
+                            <mdb-error *ngIf="selectGender.invalid && (selectGender.dirty || selectGender.touched)">
+                                debe seleccionar alguna opcion
                             </mdb-error>
-                            <mdb-success
-                                *ngIf="selectGender.valid && (selectGender.dirty || selectGender.touched)">
+                            <mdb-success *ngIf="selectGender.valid && (selectGender.dirty || selectGender.touched)">
                             </mdb-success>
                         </div>
 
                         <!-- PHONE -->
                         <div class="md-form  col-lg-6 col-md-6 mb-3">
                             <input mdbInput mdbValidate name="phone" type="text" id="phone" class="form-control"
-                                [(ngModel)]="dataUser.phone" #input_phone="ngModel" 
-                                required  
-                                minlength="7" 
-                                maxlength="11"
-                                pattern="[0-9]*"
-                                oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" 
-                                (keypress)="restrictNumeric($event)">
+                                [(ngModel)]="dataUser.phone" #input_phone="ngModel" required minlength="7"
+                                maxlength="11" pattern="[0-9]*"
+                                oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                (keypress)="restrictNumeric($event)" data-toggle="tooltip" data-placement="top"
+                                title="no permite caracteres especiales">
                             <label for="input_phone">Celular</label>
                             <mdb-error *ngIf="input_phone.invalid && (input_phone.dirty || input_phone.touched)">
-                                invalido</mdb-error>
+                                minimo 7 caracteres</mdb-error>
                             <mdb-success *ngIf="input_phone.valid && (input_phone.dirty || input_phone.touched)">
                                 correcto
                             </mdb-success>
@@ -125,11 +135,11 @@
                     <div class="form-row ">
                         <div class="md-form container">
                             <input mdbInput mdbValidate name="Email" email type="email" id="Emailregister"
-                                class="form-control" [(ngModel)]="dataUser.email" #input_Email="ngModel"
-                                 required maxlength="40">
+                                class="form-control" [(ngModel)]="dataUser.email" #input_Email="ngModel" required
+                                maxlength="40" data-toggle="tooltip" data-placement="top" title="example@example.com">
                             <label for="Emailregister">Email </label>
                             <mdb-error *ngIf="input_Email.invalid && (input_Email.dirty || input_Email.touched)">El
-                                campo debe llevar
+                                campo debe contener
                                 @</mdb-error>
                             <mdb-success *ngIf="input_Email.valid && (input_Email.dirty || input_Email.touched)">
                                 correcto
@@ -141,7 +151,8 @@
                         <div class="md-form  col-lg-6 col-md-6 mb-3">
                             <input mdbInput mdbValidate name="password" type="password" id="password"
                                 class="form-control" [(ngModel)]="dataUser.password" #input_password="ngModel" required
-                                maxlength="15" minlength="6">
+                                maxlength="15" minlength="6" data-toggle="tooltip" data-placement="top"
+                                title="permite caracteres especiales">
                             <label for="password">contraseña </label>
                             <mdb-error
                                 *ngIf="input_password.invalid && (input_password.dirty || input_password.touched)"> mas
@@ -156,7 +167,8 @@
                         <div class="md-form col-lg-6 col-md-6 mb-3">
                             <input mdbInput mdbValidate name="password2" type="password" id="password2"
                                 class="form-control" [(ngModel)]="password" #input_password2="ngModel" required
-                                maxlength="15" minlength="6">
+                                maxlength="15" minlength="6" data-toggle="tooltip" data-placement="top"
+                                title="Repetir contraseña">
                             <label for="password2">repetir contraseña </label>
                             <mdb-error
                                 *ngIf="input_password2.invalid && (input_password2.dirty || input_password2.touched)">
@@ -171,11 +183,11 @@
                     </div>
 
                     <button mdbBtn color="info" outline="true" rounded="true" block="true"
-                    [disabled]="f.form.pristine || f.form.invalid" class="z-depth-0 my-4 waves-effect"
-                        mdbWavesEffect type="submit">Registrar</button>
+                        [disabled]="f.form.pristine || f.form.invalid" class="z-depth-0 my-4 waves-effect"
+                        mdbWavesEffect type="submit" data-toggle="tooltip" data-placement="top"
+                        title="Registrar usuario">Registrar</button>
                 </form>
             </mdb-card-body>
         </mdb-card>
     </div>
 </section>
-<!-- Material form contact -->

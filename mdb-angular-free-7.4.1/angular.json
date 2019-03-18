@@ -253,7 +253,7 @@
             ],
             "scripts": [],
             "assets": [
-              "projects/mdb-demo/src/favicon.ico",
+              "assets/sorry.jpg",
               "projects/mdb-demo/src/assets"
             ]
           }

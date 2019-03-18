@@ -1,6 +1,5 @@
-
 <div>
-<!--MODAL RELAJAMIENTO-->
+  <!--MODAL RELAJAMIENTO-->
   <div class=" modal fade" id="jomboRelajamiento" tabindex="-1" role="dialog">
     <div class=" modal-dialog modal-lg modal-content  ">
       <div class="view viewjombotrom card card-image">
@@ -54,10 +53,7 @@
               <img class="d-block w-100" src="../../assets/image/H1.jpg" alt="First slide">
               <div class="mask "></div>
             </div>
-            <div class="carousel-caption">
-              <h3 class="h3-responsive">Light mask</h3>
-              <p>First text</p>
-            </div>
+
           </div>
           <div class="carousel-item">
             <!--Mask color-->
@@ -65,10 +61,7 @@
               <img class="d-block w-100" src="../../assets/image/H3.jpg" alt="Second slide">
               <div class="mask "></div>
             </div>
-            <div class="carousel-caption">
-              <h3 class="h3-responsive">Strong mask</h3>
-              <p>Secondary text</p>
-            </div>
+
           </div>
           <div class="carousel-item">
             <!--Mask color-->
@@ -76,10 +69,7 @@
               <img class="d-block w-100" src="../../assets/image/H2.jpg" alt="Third slide">
               <div class="mask rgba-black-slight"></div>
             </div>
-            <div class="carousel-caption">
-              <h3 class="h3-responsive">Slight mask</h3>
-              <p>Third text</p>
-            </div>
+            >
           </div>
           <div class="carousel-item">
             <!--Mask color-->
@@ -87,10 +77,7 @@
               <img class="d-block w-100" src="../../assets/image/H4.jpg" alt="Third slide">
               <div class="mask rgba-black-slight"></div>
             </div>
-            <div class="carousel-caption">
-              <h3 class="h3-responsive">Slight mask</h3>
-              <p>Third text</p>
-            </div>
+
           </div>
         </div>
         <!--/.Slides-->
@@ -106,7 +93,7 @@
         <!--/.Controls-->
       </div>
       <div data-aos="fade-left" class="col-md-5  text-md-left mt-5">
-        <a href="#!" class="green-text">
+        <a class="green-text">
           <h6 class="h6 pb-1" [routerLink]="[ '/habitacion']" [fragment]="'SectionPrivada'"> habitaciones</h6>
         </a>
         <p class=" titulo h3 mb-4 " style="font-size:45px;">Comodidad</p>
@@ -130,10 +117,9 @@
           <h6 class="h6 pb-1" data-toggle="modal" data-target="#jomboRelajamiento"> Zona de descanso</h6>
         </a>
         <h1 class="titulo h3 mb-4 " style="font-size:45px;">Relajamiento</h1>
-        <p class="font-weight-normal">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-          doloremque, totam
-          rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-          dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur.</p>
+        <p class="font-weight-normal">Podras disfrutas de tranquilas y bellas zonas verdes, para leer, descanzar o simplemente caminar
+          por los senderos ecologicos rodeados de arboles que adornan el paisaje.
+        </p>
         <a mdbBtn color="success" data-toggle="modal" data-target="#jomboRelajamiento" mdbWavesEffect>Leer mas</a>
       </div>
       <div data-aos="fade-left" id="carouselDescanso" class=" col-md-6  mt-5 carousel slide carousel-fade"
@@ -153,20 +139,12 @@
               <img class="d-block w-100" src="../../assets/image/R1.jpg" alt="First slide">
               <div class="mask "></div>
             </div>
-            <div class="carousel-caption">
-              <h3 class="h3-responsive">Light mask</h3>
-              <p>First text</p>
-            </div>
           </div>
           <div class="carousel-item">
             <!--Mask color-->
             <div class="view">
               <img class="d-block w-100" src="../../assets/image/R2.jpg" alt="Second slide">
               <div class="mask "></div>
-            </div>
-            <div class="carousel-caption">
-              <h3 class="h3-responsive">Strong mask</h3>
-              <p>Secondary text</p>
             </div>
           </div>
           <div class="carousel-item">
@@ -175,20 +153,12 @@
               <img class="d-block w-100" src="../../assets/image/R3.jpg" alt="Third slide">
               <div class="mask rgba-black-slight"></div>
             </div>
-            <div class="carousel-caption">
-              <h3 class="h3-responsive">Slight mask</h3>
-              <p>Third text</p>
-            </div>
           </div>
           <div class="carousel-item">
             <!--Mask color-->
             <div class="view">
               <img class="d-block w-100" src="../../assets/image/R4.jpg" alt="Third slide">
               <div class="mask rgba-black-slight"></div>
-            </div>
-            <div class="carousel-caption">
-              <h3 class="h3-responsive">Slight mask</h3>
-              <p>Third text</p>
             </div>
           </div>
         </div>
@@ -215,8 +185,9 @@
         <p data-aos="fade-down" class=" mx-5 mb-5">si deseas disfrutar de un ambiente familiar en el que te sentiras
           como en casa debes conocer nuestras instalaciones, las cuales estan diseñadas especialmente para ti.
         </p>
-        <a data-aos="fade-right" mdbBtn color="white" [routerLink]="['/reserva']" outline="true" class="waves-light " mdbWavesEffect>
-          <mdb-icon fas icon="clone" class="left" ></mdb-icon>Reserva ya
+        <a data-aos="fade-right" mdbBtn color="white" [routerLink]="['/reserva']" [fragment]="'sectionReserva'"
+          outline="true" class="waves-light " mdbWavesEffect>
+          <mdb-icon fas icon="clone" class="left"></mdb-icon>Reserva ya
         </a>
       </div>
     </div>

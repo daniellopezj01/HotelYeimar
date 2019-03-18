@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "hotelyeimar": "hotelyeimarcliente",
+    "default": "hotelyeimarcliente"
+  }
+}

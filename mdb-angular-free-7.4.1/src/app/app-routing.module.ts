@@ -1,3 +1,4 @@
+import { MisReservasComponent } from './mis-reservas/mis-reservas.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { ConocenosComponent } from './conocenos/conocenos.component';
 import { RegisterComponent } from './register/register.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'conocenos', component: ConocenosComponent },
   { path: 'reserva', component: ReservaComponent ,   canActivate: [AuthGuard]},
   { path: 'updateUser', component: UpdateUserComponent },
+  { path: 'MisReservas', component: MisReservasComponent },
   { path: '', component: HomeComponent }
 ];
 

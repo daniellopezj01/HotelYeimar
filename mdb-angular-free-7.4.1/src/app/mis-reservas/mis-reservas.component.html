@@ -1,0 +1,29 @@
+<section id="MreservasSection">
+
+  <div data-aos="fade-right" class="text-center titulo  fadeInUp font-italic">
+    <p> <strong> Mis reservas</strong></p>
+  </div>
+  <hr style="border-color:darkgoldenrod" class="col-md-6">
+  <div class="container" data-aos="fade-down">
+
+    <div class="container" data-aos="fade-down">
+      <table mdbTable>
+        <thead class="black white-text">
+          <tr>
+            <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+          </tr>
+        </thead>
+        <tbody class=" black-text">
+          <tr mdbTableCol *ngFor="let element of showReserve">
+            <th scope="row">{{element.camas}}</th>
+            <td>{{element.inicial}}</td>
+            <td>{{element.final}}</td>
+            <td>{{element.tipo}}</td>
+            <td>{{element.estado}}</td>
+            <td>{{element.importe}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

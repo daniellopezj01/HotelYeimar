@@ -3,7 +3,7 @@
     [containerInside]="false">
     <mdb-navbar-brand>
       <a class="logo navbar-brand" href="#">
-        <strong>Yeimar</strong>
+        <strong>Hotel Yeimar</strong>
       </a>
     </mdb-navbar-brand>
     <links>
@@ -17,7 +17,7 @@
           <a class="nav-link" [routerLink]="[ '/habitacion']" [fragment]="'SectionPrivada'">Habitaciones</a>
         </li>
         <li class="nav-item waves-light" mdbWavesEffect>
-          <a class="nav-link" [routerLink]="['/reserva']">Reserva</a>
+          <a class="nav-link" [routerLink]="['/reserva']" [fragment]="'sectionReserva'">Reserva</a>
         </li>
         <li class="nav-item waves-light" mdbWavesEffect>
           <a class="nav-link" [routerLink]="['/conocenos']" [fragment]="'SeccionConocenos'">Conocenos</a>
@@ -30,11 +30,11 @@
         <li class="nav-item dropdown btn-group" dropdown>
           <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect
             [hidden]="!showPerfil">
-            <i class="fas fa-user"></i> Daniel
+            <i class="fas fa-user"></i> {{person.firstName}}
           </a>
           <div class="dropdown-menu  dropdown-menu-right" role="menu">
             <a class="dropdown-item" [routerLink]="[ '/updateUser']" [fragment]="'sectionUpdate'">Actualizar </a>
-            <a class="dropdown-item" [routerLink]="[ '/register']" [fragment]="'sectionRegister'">mis reservas</a>
+            <a class="dropdown-item" [routerLink]="[ '/MisReservas']" [fragment]="'MreservasSection'">mis reservas</a>
           </div>
 
         </li>
@@ -47,10 +47,10 @@
             <a class="dropdown-item" data-toggle="modal" data-target="#modalLoginForm">ingresar </a>
             <a class="dropdown-item" [routerLink]="[ '/register']" [fragment]="'sectionRegister'">Registrate</a>
           </div>
-
         </li>
-        <li class="nav-item waves-light" mdbWavesEffect>
-         <a class="nav-link" (click) = "clearlocalstora()">Salir</a>
+        <li  [hidden]="!showPerfil" class="nav-item waves-light" mdbWavesEffect>
+         <a class="nav-link" data-toggle="modal" data-target="#cerrar" >Salir</a>
+         <!--(click) = "clearlocalstora()"-->
         </li>
       </ul>
     </links>
@@ -66,29 +66,26 @@
     </div>
   </div>
 </header>
-<hr>
-<hr>
-<hr>
 
-  <div class="modal"  id="modalquestion"    role="dialog"> 
-       <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal"  aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
-            <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Save changes</button>
-          </div>
+<div  id="cerrar" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close pull-right" data-dismiss="modal">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title w-100" id="myModalLabel">Mensaje de alerta</h4>
+        </div>
+        <div class="modal-body">
+          <p class="mensaje">¿desea cerrar sesion?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" mdbBtn class="btn btn-danger" data-dismiss="modal">No</button>
+          <button type="button" mdbBtn  class="btn btn-success" (click) = "clearlocalstora()">si,cerrar</button>
         </div>
       </div>
     </div>
+  </div>
 
 
 <!-- AQUI VA A IR EL MOOODAAALLLLLLLLLLLLLL-->
@@ -137,6 +134,25 @@
           <p>No tienes una cuenta?
             <a href="" [routerLink]="[ '/register']" [fragment]="'sectionRegister'" data-dismiss="modal">Registrarse</a>
           </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div  id="modalAlert" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close pull-right" data-dismiss="modal">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title w-100" id="myModalLabel">Mensaje de alerta</h4>
+        </div>
+        <div class="modal-body">
+          <p class="mensaje">{{message}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" mdbBtn color="secondary" class="waves-light" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
@@ -191,13 +207,13 @@
   </div>
   <div data-aos="fade-up" class=" footer-copyright">
     <div class=" container  info  text-center flex-center py-3 ">
-      <a class="nav-link ">
+      <a href="https://www.facebook.com/hotelYeimar/" target="_blank"
+       class="nav-link ">
         <i class="fab fa-facebook-f"></i> facebook </a>
       <a href="https://instagram.com/hotelyeimar?utm_source=ig_profile_share&igshid=14502ec64b93u" target="_blank"
         class="nav-link ">
         <i class="fab fa-instagram"></i> instagram </a>
-      <a class="nav-link ">
-        <i class="fab fa-twitter"></i> twitter </a>
+    
     </div>
   </div>
   <div class=" footer-copyright">

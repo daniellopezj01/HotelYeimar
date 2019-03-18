@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,7 +16,8 @@ import { ConocenosComponent } from './conocenos/conocenos.component';
 import { ReservaComponent } from './reserva/reserva.component';
 import {NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import { UpdateUserComponent } from './update-user/update-user.component';
-
+import { MisReservasComponent } from './mis-reservas/mis-reservas.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +31,7 @@ import { UpdateUserComponent } from './update-user/update-user.component';
     ConocenosComponent,
     ReservaComponent,
     UpdateUserComponent,
+    MisReservasComponent,
   ],
 
   imports: [
@@ -39,7 +40,8 @@ import { UpdateUserComponent } from './update-user/update-user.component';
     FormsModule,
     AppRoutingModule,
     RouterModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

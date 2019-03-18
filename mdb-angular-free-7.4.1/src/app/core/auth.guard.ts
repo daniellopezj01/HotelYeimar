@@ -12,16 +12,11 @@ declare var $: any;
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (!this.authService.isLoggedIn) {
-        /*
-      return this.router.createUrlTree(
-        ['/notauth', { message: 'you do not have the permission to enter' }]
-        // { skipLocationChange: true }
-      );*/
-   $("#modalLoginForm").modal("show");
+      $("#modalLoginForm").modal("show");
     } else {
       return true;
     }

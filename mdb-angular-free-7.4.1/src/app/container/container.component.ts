@@ -2,6 +2,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Login } from '../models/Login';
 import { AuthService } from '../core/auth.service';
+import { CreateUserService } from '../register/register.service';
+import { Router } from '@angular/router';
+import { UserModel } from '../models/UserModel';
 declare var $: any;
 
 @Component({
@@ -17,35 +20,49 @@ export class ContainerComponent implements OnInit {
   showPerfil: boolean;
   email: string;
   password: string;
-  localshowPerfil:string;
-  
-  constructor(public authService: AuthService) { 
+  localshowPerfil: string;
+  person: UserModel;
+  cont: number;
+  message:string;
+  constructor(public authService: AuthService,
+    private createUserService: CreateUserService,
+    private router: Router) {
+    this.person = new UserModel();
     this.ModalLogin = new Login();
-    this.email = 'daniellopezj0327@gmail.com';
-    this.password = '111111';
+    this.cont = 0;
     this.validateUserLogin();
-   
   }
 
-  validateUserLogin(){
-    this.localshowPerfil =  localStorage.getItem('user');
-    if(this.localshowPerfil == 'loginC'){
+  validateUserLogin() {
+    this.localshowPerfil = localStorage.getItem('user');
+    if (this.localshowPerfil == 'loginC') {
       this.showPerfil = true;
+      this.person = JSON.parse(localStorage.getItem('Person'));
       this.authService.login();
     }
   }
 
   onSubmit() {
-    if (this.ModalLogin.Loginemai == this.email && this.ModalLogin.password == this.password) {
-      localStorage.setItem('user', 'loginC');
-      console.log("ingrese");
-      alert('bienvenido señor usuario')
-      this.showPerfil =  true;
-      this.authService.login();
-      $("#modalLoginForm").modal("hide");
-    } else {
-      alert('datos incorrectos');
-    }
+    if (this.cont < 1) {
+      this.createUserService.ValidateLogin(this.ModalLogin).subscribe(res => {
+        if (res == null) {
+          this.message = 'Usuario o contraseña equivocada';
+         this.ModalLogin =  new Login();
+        } else {
+          this.person = res;
+          localStorage.setItem('user', 'loginC');
+          localStorage.setItem('Person', JSON.stringify(this.person));
+          this.showPerfil = true;
+          this.authService.login();
+          this.message = 'bienvenido señor usuario';
+          $("#modalLoginForm").modal("hide");
+          this.ModalLogin =  new Login();
+        }  
+        $("#modalAlert").modal("show");
+        this.cont = 0;
+      });
+    } this.cont++;
+
   }
 
   ngOnInit() {
@@ -56,12 +73,13 @@ export class ContainerComponent implements OnInit {
     });
   }
 
-  clearlocalstora(){
-      console.log('entre al metodo clearlocalstora')
-      this.showPerfil = false;
-      localStorage.clear();
-      this.authService.logout();
+  clearlocalstora() {
+    $("#cerrar").modal("hide");
+    this.showPerfil = false;
+    localStorage.clear();
+    this.authService.logout();
+    this.router.navigate(['']);
   }
-  
+
   get input() { return this.validatingForm.get('maxLength'); }
 }

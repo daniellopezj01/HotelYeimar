@@ -1,5 +1,23 @@
 <section id="sectionUpdate">
-        
+    <div id="modalAlertup" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close pull-right" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title w-100" >Mensaje de alerta</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="mensaje">{{message}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" mdbBtn color="secondary" class="waves-light"
+                        data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
   <div class="container text-center col-lg-5 col-md-6 mb-3">
   <!-- Material form contact -->
   <mdb-card>
@@ -17,7 +35,7 @@
                   <!-- First name -->
                   <div class="  md-form col-lg-6 col-md-6 mb-3">
                       <input mdbInput mdbValidate type="text" id="first_name" name="first" class="form-control required-entry validate-alpha "
-                          [(ngModel)]="dataUser.first_name" #input_first_name="ngModel"  minlength="3"
+                          [(ngModel)]="dataUser.firstName" #input_first_name="ngModel"  minlength="3"
                           maxlength="20"
                           pattern="[a-zA-Z ]*" 
                           (keypress)="restrictext($event)"
@@ -26,14 +44,11 @@
                       <mdb-error
                           *ngIf="input_first_name.invalid && (input_first_name.dirty || input_first_name.touched)">
                           invalido</mdb-error>
-                      <mdb-success
-                          *ngIf="input_first_name.valid && (input_first_name.dirty || input_first_name.touched)">
-                          correcto</mdb-success>
                   </div>
                   <!-- Last name -->
                   <div class="col md-form col-lg-6 col-md-6 mb-3">
                       <input mdbInput mdbValidate name="l_name" type="text" id="last_name" class="form-control"
-                          [(ngModel)]="dataUser.last_name" #input_last_name="ngModel" required minlength="4"
+                          [(ngModel)]="dataUser.lastName" #input_last_name="ngModel" required minlength="4"
                           maxlength="20" pattern="[a-zA-Z ]*"
                           (keypress)="restrictext($event)">
                       <label for="last_name">Apellido</label>
@@ -41,10 +56,6 @@
                           *ngIf="input_last_name.invalid && (input_last_name.dirty || input_last_name.touched)">
                           invalido
                       </mdb-error>
-                      <mdb-success
-                          *ngIf="input_last_name.valid && (input_last_name.dirty || input_last_name.touched)">
-                          correcto
-                      </mdb-success>
                   </div>
               </div>
               <!-- TYPE DOCUMENT -->
@@ -52,19 +63,15 @@
                   <div class="  col-lg-6 col-md-6 mb-3">
                       <span>Tipo de documento</span>
                       <select #selectdocument="ngModel" class="form-control" id="idSelectDocument" name="selec"
-                          [(ngModel)]="dataUser.idTypeDocument" class="browser-default custom-select" required>
-                          <option selected></option>
-                          <option value="1">Tarjeta de identidad</option>
-                          <option value="2">Cedula de extranjeria</option>
-                          <option value="3">Cedula de extranjeria</option>
+                          [(ngModel)]="dataUser.idTypeDocument" class="browser-default custom-select" >
+                          <option *ngFor="let document of typeDocumentList" [value]="document.id">
+                            {{ document.nombre_tipo }}
+                        </option>
                       </select>
                       <mdb-error
                           *ngIf="selectdocument.invalid && (selectdocument.dirty || selectdocument.touched)">
                           invalido
                       </mdb-error>
-                      <mdb-success
-                          *ngIf="selectdocument.valid && (selectdocument.dirty || selectdocument.touched)">
-                      </mdb-success>
                   </div>
                   <!-- DOCUMENT -->
                   <div class="md-form  col-lg-6 col-md-6 mb-3">
@@ -78,8 +85,7 @@
                       <label for="mini">Documento</label>
                       <mdb-error *ngIf="mini.invalid && (mini.dirty || mini.touched)">invalido
                       </mdb-error>
-                      <mdb-success *ngIf="mini.valid && (mini.dirty || mini.touched)">correcto
-                      </mdb-success>
+                      
                   </div>
               </div>
               <!-- GENERO CELULAR -->
@@ -89,7 +95,7 @@
                       <select id="idSelectGender" #selectGender="ngModel" name="selecGender" 
                        [(ngModel)]="dataUser.gender"
                           class="browser-default custom-select"
-                          required>
+                          >
                           <option *ngFor="let gender of genderList"
                           [value]="gender.domainGender">
                           {{ gender.nameGender }}</option>      
@@ -98,11 +104,7 @@
                           *ngIf="selectGender.invalid && (selectGender.dirty || selectGender.touched)">
                           invalido
                       </mdb-error>
-                      <mdb-success
-                          *ngIf="selectGender.valid && (selectGender.dirty || selectGender.touched)">
-                      </mdb-success>
                   </div>
-
                   <!-- PHONE -->
                   <div class="md-form  col-lg-6 col-md-6 mb-3">
                       <input mdbInput mdbValidate name="phone" type="text" id="phone" class="form-control"
@@ -116,9 +118,6 @@
                       <label for="input_phone">Celular</label>
                       <mdb-error *ngIf="input_phone.invalid && (input_phone.dirty || input_phone.touched)">
                           invalido</mdb-error>
-                      <mdb-success *ngIf="input_phone.valid && (input_phone.dirty || input_phone.touched)">
-                          correcto
-                      </mdb-success>
                   </div>
               </div>
               <!-- EMAIL -->
@@ -131,9 +130,7 @@
                       <mdb-error *ngIf="input_Email.invalid && (input_Email.dirty || input_Email.touched)">El
                           campo debe llevar
                           @</mdb-error>
-                      <mdb-success *ngIf="input_Email.valid && (input_Email.dirty || input_Email.touched)">
-                          correcto
-                      </mdb-success>
+                      
                   </div>
               </div>
               <!--Contraseña-->
@@ -148,10 +145,7 @@
                           de 6
                           caracteres
                       </mdb-error>
-                      <mdb-success
-                          *ngIf="input_password.valid && (input_password.dirty || input_password.touched)">
-                          correcto
-                      </mdb-success>
+                   
                   </div>
                   <div class="md-form col-lg-6 col-md-6 mb-3">
                       <input mdbInput mdbValidate name="password2" type="password" id="password2"
@@ -163,10 +157,7 @@
                           mas de 6
                           caracteres
                       </mdb-error>
-                      <mdb-success
-                          *ngIf="input_password2.valid && (input_password2.dirty || input_password2.touched)  ">
-                          correcto
-                      </mdb-success>
+                     
                   </div>
               </div>
 

@@ -1,23 +1,45 @@
-import { ContactModel } from './../models/ContactModel';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { MailboxModel } from '../models/MailboxModel ';
+import { HTTP_URL } from '../models/httpStatus';
+import { RestResponse } from '../models/RestResponse.model';
+import { OK } from './../models/httpStatus';
+declare var $: any;
+import { Injectable } from '@angular/core';
 
 @Component({
   selector: 'app-contacto',
   templateUrl: './contacto.component.html',
   styleUrls: ['./contacto.component.scss']
 })
+
+@Injectable({
+  providedIn: 'root'
+})
 export class ContactoComponent  {
   public map: any = { lat: 51.678418, lng: 7.809007 };
-  contmodel: ContactModel;
-  
-  constructor(){
-    this.contmodel = new ContactModel();
+  contmodel: MailboxModel;
+  message: string;
+
+  constructor(private http: HttpClient){
+    this.contmodel = new MailboxModel();
   }
+
   onSubmit() {   
-    console.log(this.contmodel.first_name +' '+  this.contmodel.last_name 
-    +' '+  this.contmodel.email +' '+  this.contmodel.affair
-    +' '+  this.contmodel.message);
-     this.contmodel = new ContactModel();
+     this.saveOurUpdate(this.contmodel).subscribe(res => {
+      if (res.responseCode === OK) {
+        this.message = 'Mensaje enviado.  tu opinio es muy importante para nosotros, gracias por dejarnos tu mensaje';
+      } else {
+        this.message = res.message;
+      }
+    });
+    $("#modalAlertcontact").modal("show");
+    this.contmodel = new MailboxModel();
+  }
+
+  public saveOurUpdate(mailbox: MailboxModel): Observable<RestResponse> {
+    return this.http.post<RestResponse>(HTTP_URL+'listMailbox', mailbox);
   }
 
   public restrictNumeric(e) {
@@ -42,6 +64,5 @@ export class ContactoComponent  {
     let input;
     input = String.fromCharCode(e.which);
     return !!/[\D]/.test(input);
-  
   }
 }

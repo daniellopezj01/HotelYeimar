@@ -29,7 +29,7 @@ export class ContactoComponent  {
   onSubmit() {   
      this.saveOurUpdate(this.contmodel).subscribe(res => {
       if (res.responseCode === OK) {
-        this.message = 'Mensaje enviado.  tu opinio es muy importante para nosotros, gracias por dejarnos tu mensaje';
+        this.message = 'Mensaje enviado.  tu opinión  es muy importante para nosotros, gracias por dejarnos tu mensaje';
       } else {
         this.message = res.message;
       }

@@ -69,12 +69,12 @@
           <select #selectaffair="ngModel" class="form-control" id="idSelectaffairt" name="selec"
             [(ngModel)]="contmodel.affair" class="browser-default custom-select" required>
             <option selected></option>
-            <option value="1">recomendacion</option>
+            <option value="1">recomendación</option>
             <option value="2">queja</option>
-            <option value="3">felicitacion</option>
+            <option value="3">felicitación</option>
           </select>
           <mdb-error *ngIf="selectaffair.invalid && (selectaffair.dirty || selectaffair.touched)">
-            debe seleeccionar una opcion valida
+            debe seleccionar una opcion valida
           </mdb-error>
           <mdb-success *ngIf="selectaffair.valid && (selectaffair.dirty || selectaffair.touched)">
           </mdb-success>
@@ -83,7 +83,7 @@
           <textarea mdbInput mdbValidate name="message" type="text" id="message" class="form-control md-textarea"
             rows="3" [(ngModel)]="contmodel.message" #text_message="ngModel" required minlength="30"
             maxlength="250"></textarea>
-          <label for="message">mensaje</label>
+          <label for="message">Mensaje</label>
           <mdb-error *ngIf="text_message.invalid && (text_message.dirty || text_message.touched)"> minimo 30 caracteres
           </mdb-error>
           <mdb-success *ngIf="text_message.valid && (text_message.dirty || text_message.touched)">correcto

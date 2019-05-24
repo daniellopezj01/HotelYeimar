@@ -14,10 +14,11 @@ import { ContactoComponent } from './contacto/contacto.component';
 import { HabitacionComponent } from './habitacion/habitacion.component';
 import { ConocenosComponent } from './conocenos/conocenos.component';
 import { ReservaComponent } from './reserva/reserva.component';
-import {NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { MisReservasComponent } from './mis-reservas/mis-reservas.component';
 import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
